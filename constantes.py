@@ -1,3 +1,5 @@
+import pygame 
+
 largura_tela = 1000
 altura_tela = 500
-velocidade_tela = 5
+velocidade_tela = 1
