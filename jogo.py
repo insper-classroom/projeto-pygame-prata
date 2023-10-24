@@ -95,7 +95,7 @@ class Background(pygame.sprite.Sprite):
 def game_loop(window):
     
     player = Player() 
-    background_imagem = Background('Background_pygame_project.webp') 
+    background_imagem = Background('Background_pygame_project.png') 
     distancia_percorrida = 0
     fonte = pygame.font.Font(None, 36) 
 
@@ -103,7 +103,7 @@ def game_loop(window):
     tempo_de_aumento_velocidade = 20000
     incremento_velocidade = 0.2
     tempo_entre_frames = pygame.time.Clock()
-    background_imagem = Background('Background_pygame_project.webp')  
+    background_imagem = Background('Background_pygame_project.png')  
     obstacles = [Obstacle() for _ in range(5)]
 
 
