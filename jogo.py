@@ -20,7 +20,7 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect_obstacle.x -= velocidade_tela
         if self.rect_obstacle.right < 0:
             self.rect_obstacle.x = largura_tela
-            self.rect_obstacle.y = random.randint(100, altura_tela - 100)  # Randomize obstacle height
+            self.rect_obstacle.y = random.randint(100, altura_tela - 100)  
 
     def draw_obstacle(self, window):
         window.blit(self.surface_obstacle, self.rect_obstacle)
@@ -32,15 +32,35 @@ class Player(pygame.sprite.Sprite):
         self.surface_player = pygame.Surface((50, 25))
         self.surface_player.fill((0, 255, 0))
         self.rect_player = self.surface_player.get_rect(x=largura_tela * 0.1, y=altura_tela * 0.5)
+        self.velocidade_vertical = 0
+        self.impulso = 1
+        self.gravidade = 0.01
 
     def movimenta_player(self):
+        
         tecla_apertada = pygame.key.get_pressed()
 
-        if tecla_apertada[pygame.K_UP]:
-            self.rect_player.y -= 5
-        if tecla_apertada[pygame.K_DOWN]:
-            self.rect_player.y += 5
+        if tecla_apertada[pygame.K_SPACE]:
+            self.velocidade_vertical = -self.impulso
+        else:
+            self.velocidade_vertical += self.gravidade
 
+        self.rect_player.y += self.velocidade_vertical
+
+        # Limite superior
+        if self.rect_player.y < 0:
+            self.rect_player.y = 0
+            self.velocidade_vertical = 0
+
+        # Limite inferior
+        if self.rect_player.y > altura_tela - self.rect_player.height:
+            self.rect_player.y = altura_tela - self.rect_player.height
+            self.velocidade_vertical = 0
+
+            if tecla_apertada[pygame.K_SPACE]:
+                self.velocidade_vertical = -self.impulso
+
+    
     def desenha_player(self, window):
         window.blit(self.surface_player, self.rect_player)
 
