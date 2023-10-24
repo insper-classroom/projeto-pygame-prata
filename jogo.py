@@ -33,7 +33,7 @@ class Player(pygame.sprite.Sprite):
         self.surface_player.fill((0, 255, 0))
         self.rect_player = self.surface_player.get_rect(x=largura_tela * 0.1, y=altura_tela * 0.5)
         self.velocidade_vertical = 0
-        self.impulso = 1
+        self.impulso = 0.6
         self.gravidade = 0.01
 
     def movimenta_player(self):
@@ -95,7 +95,8 @@ class Background(pygame.sprite.Sprite):
 def game_loop(window):
     
     player = Player() 
-    background_imagem = Background('Background_pygame_project.png') 
+    background_imagem = Background('Background_pygame_project.webp') 
+
     distancia_percorrida = 0
     fonte = pygame.font.Font(None, 36) 
 
@@ -103,7 +104,8 @@ def game_loop(window):
     tempo_de_aumento_velocidade = 20000
     incremento_velocidade = 0.2
     tempo_entre_frames = pygame.time.Clock()
-    background_imagem = Background('Background_pygame_project.png')  
+
+
     obstacles = [Obstacle() for _ in range(5)]
 
 
@@ -134,7 +136,7 @@ def game_loop(window):
         background_imagem.desenha_background(window)  
         player.desenha_player(window) 
 
-        texto_distancia = fonte.render(f"{int(distancia_percorrida)}", True, (255, 255, 255))
+        texto_distancia = fonte.render(f"{int(distancia_percorrida)} M ", True, (255, 255, 255))
         window.blit(texto_distancia, (largura_tela * 0.9, altura_tela * 0.1))
     
         for obstacle in obstacles:
