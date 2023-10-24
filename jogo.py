@@ -38,8 +38,9 @@ class Background(pygame.sprite.Sprite):
         self.rect_background_direita = self.surface_background.get_rect(topleft=(largura_tela, 0))
 
     def movimenta_background(self):
+        
         self.rect_background_esquerda.x -= velocidade_tela
-        self.rect_background_direita.x -= velocidade_tela
+        self.rect_background_direita.x -= velocidade_tela 
 
         if self.rect_background_esquerda.x <= -largura_tela:
             self.rect_background_esquerda.x = largura_tela
@@ -55,27 +56,41 @@ class Background(pygame.sprite.Sprite):
 
 
 def game_loop(window):
+    
     player = Player() 
-    background_imagem = Background('Background_pygame_project.webp')  
+    background_imagem = Background('Background_pygame_project.webp') 
+    distancia_percorrida = 0
+    fonte = pygame.font.Font(None, 36) 
 
-    clock = pygame.time.Clock()  
+    tempo_passado = 0
+    tempo_de_aumento_velocidade = 20000
+    incremento_velocidade = 0.2
+    tempo_entre_frames = pygame.time.Clock()
+
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+            
+        tempo_passado += tempo_entre_frames.tick()
+
+        if tempo_passado >= tempo_de_aumento_velocidade:
+            global velocidade_tela
+            velocidade_tela += incremento_velocidade
+            tempo_passado -= tempo_de_aumento_velocidade
 
         player.movimenta_player()  
         background_imagem.movimenta_background()  
+        distancia_percorrida += velocidade_tela / 50
 
         background_imagem.desenha_background(window)  
         player.desenha_player(window) 
+        texto_distancia = fonte.render(f"{int(distancia_percorrida)}", True, (255, 255, 255))
+        window.blit(texto_distancia, (largura_tela * 0.9, altura_tela * 0.1))
 
         pygame.display.update()  
-
-        clock.tick(60) 
-
 
 
 
