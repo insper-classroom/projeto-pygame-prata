@@ -1,5 +1,6 @@
 import pygame
 from constantes import *
+import random
 
 def inicializa():
     pygame.init()
@@ -7,6 +8,22 @@ def inicializa():
     pygame.display.set_caption('Corre!')
     return window
 
+class Obstacle(pygame.sprite.Sprite):
+    def __init__(self):
+        self.surface_obstacle = pygame.Surface((30, 30))
+        self.surface_obstacle.fill((255, 0, 0))
+        self.rect_obstacle = self.surface_obstacle.get_rect(
+            x=largura_tela, y=altura_tela * 0.5
+        )
+
+    def move_obstacle(self):
+        self.rect_obstacle.x -= velocidade_tela
+        if self.rect_obstacle.right < 0:
+            self.rect_obstacle.x = largura_tela
+            self.rect_obstacle.y = random.randint(100, altura_tela - 100)  # Randomize obstacle height
+
+    def draw_obstacle(self, window):
+        window.blit(self.surface_obstacle, self.rect_obstacle)
 
 
 class Player(pygame.sprite.Sprite):
@@ -66,6 +83,8 @@ def game_loop(window):
     tempo_de_aumento_velocidade = 20000
     incremento_velocidade = 0.2
     tempo_entre_frames = pygame.time.Clock()
+    background_imagem = Background('Background_pygame_project.webp')  
+    obstacles = [Obstacle() for _ in range(5)]
 
 
     while True:
@@ -85,10 +104,21 @@ def game_loop(window):
         background_imagem.movimenta_background()  
         distancia_percorrida += velocidade_tela / 50
 
+        for obstacle in obstacles:
+            obstacle.move_obstacle()
+            if player.rect_player.colliderect(obstacle.rect_obstacle):
+                
+                pygame.quit()
+                return
+
         background_imagem.desenha_background(window)  
         player.desenha_player(window) 
+
         texto_distancia = fonte.render(f"{int(distancia_percorrida)}", True, (255, 255, 255))
         window.blit(texto_distancia, (largura_tela * 0.9, altura_tela * 0.1))
+    
+        for obstacle in obstacles:
+            obstacle.draw_obstacle(window)
 
         pygame.display.update()  
 
