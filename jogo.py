@@ -1,8 +1,10 @@
 import pygame
+from constantes import *
+import random
 
 def inicializa():
     pygame.init()
-    window = pygame.display.set_mode((1000, 500))
+    window = pygame.display.set_mode((largura_tela, altura_tela))
     pygame.display.set_caption('Corre!')
     return window
 
