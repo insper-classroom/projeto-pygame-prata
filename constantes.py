@@ -2,4 +2,5 @@ import pygame
 
 largura_tela = 1000
 altura_tela = 500
-velocidade_tela = 0.6
+velocidade_tela = 1
+altura_chao = 465
