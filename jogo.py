@@ -5,7 +5,7 @@ import random
 def inicializa():
     pygame.init()
     window = pygame.display.set_mode((largura_tela, altura_tela))
-    pygame.display.set_caption('Corre!')
+    pygame.display.set_caption('LabRun')
     return window
 
 class Obstacle(pygame.sprite.Sprite):
@@ -19,7 +19,7 @@ class Obstacle(pygame.sprite.Sprite):
     def move_obstacle(self):
         self.rect_obstacle.x -= velocidade_tela
         if self.rect_obstacle.right < 0:
-            self.rect_obstacle.x = largura_tela
+            self.rect_obstacle.x = random.randint (largura_tela, largura_tela * 2)
             self.rect_obstacle.y = random.randint(100, altura_tela - 100)  
 
     def draw_obstacle(self, window):
@@ -59,7 +59,7 @@ class Player(pygame.sprite.Sprite):
 
             if tecla_apertada[pygame.K_SPACE]:
                 self.velocidade_vertical = -self.impulso
-                
+
 
     def desenha_player(self, window):
         window.blit(self.surface_player, self.rect_player)
@@ -101,13 +101,7 @@ def game_loop(window):
     distancia_percorrida = 0
     fonte = pygame.font.Font(None, 36) 
 
-    tempo_passado = 0
-    tempo_de_aumento_velocidade = 20000
-    incremento_velocidade = 0.5
-    tempo_entre_frames = pygame.time.Clock()
-
-
-    obstacles = [Obstacle() for _ in range(5)]
+    obstacles = [Obstacle() for _ in range(10)]
 
 
     while True:
@@ -115,17 +109,10 @@ def game_loop(window):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
-            
-        tempo_passado += tempo_entre_frames.tick()
-
-        if tempo_passado >= tempo_de_aumento_velocidade:
-            global velocidade_tela
-            velocidade_tela += incremento_velocidade
-            tempo_passado -= tempo_de_aumento_velocidade
 
         player.movimenta_player()  
         background_imagem.movimenta_background()  
-        distancia_percorrida += velocidade_tela / 50
+        distancia_percorrida += velocidade_tela / 20
 
         for obstacle in obstacles:
             obstacle.move_obstacle()
