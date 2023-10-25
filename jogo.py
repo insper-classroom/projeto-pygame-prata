@@ -99,20 +99,28 @@ def game_loop(window):
     background_imagem = Background('background.png') 
 
     distancia_percorrida = 0
-    fonte = pygame.font.Font(None, 36) 
+    fonte = pygame.font.Font(None, 36)
+
+    AUMENTAR_VELOCIDADE_EVENT = pygame.USEREVENT + 1
+    pygame.time.set_timer(AUMENTAR_VELOCIDADE_EVENT, 20000) 
 
     obstacles = [Obstacle() for _ in range(10)]
 
 
     while True:
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                return
+                return 
+
+            elif event.type == AUMENTAR_VELOCIDADE_EVENT:
+                global velocidade_tela
+                velocidade_tela += QUANTIDADE_AUMENTO_VELOCIDADE
 
         player.movimenta_player()  
         background_imagem.movimenta_background()  
-        distancia_percorrida += velocidade_tela / 20
+        distancia_percorrida += velocidade_tela / 30
 
         for obstacle in obstacles:
             obstacle.move_obstacle()
