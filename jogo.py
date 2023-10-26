@@ -138,7 +138,7 @@ def game_loop(window):
         for obstacle in obstacles:
             obstacle.draw_obstacle(window)
 
-        pygame.display.update()  
+        pygame.display.flip()  
 
 
 
