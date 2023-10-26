@@ -8,7 +8,7 @@ def inicializa():
     pygame.display.set_caption('LabRun')
     player = Player() 
     background_imagem = Background('background.png') 
-    obstacles = [Obstacle() for _ in range(10)]
+    obstacles = [Obstacle() for _ in range(2 )]
     state = {'player': player, 'background' : background_imagem, 'obstacles' : obstacles}
 
     return window, state
@@ -49,18 +49,21 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + 50, y=altura_tela * 0.5)
 
     def move_obstacle(self):
-        # self.rect_obstacle.x -= velocidade_tela
-        # if self.rect_obstacle.right < 0:
-            # self.rect_obstacle.x = random.randint (largura_tela, largura_tela * 2)
-            # self.rect_obstacle.y = random.randint(100, altura_tela - 100)  
+
         self.current_frame = (self.current_frame + 1) % len(self.obstacle_type)
-        # self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela, y=random.randint(100, altura_tela - 100))
         self.rect.x -= velocidade_tela
+
+    def reset_position(self):
+        self.rect.x = largura_tela + random.randint(0, 600)  
+        self.rect.y = random.randint(100, altura_tela - 100) 
+
+    def add_obstacle(obstacles):
+        new_obstacle = Obstacle()
+        obstacles.append(new_obstacle)
 
     def draw_obstacle(self, window):
         
         window.blit(self.obstacle_type[self.current_frame], (self.rect.x, self.rect.y))
-        print(self.rect)
 
 
 class Player(pygame.sprite.Sprite):
@@ -138,6 +141,9 @@ def game_loop(window, state):
     distancia_percorrida = 0
     fonte = pygame.font.Font(None, 36)
 
+    obstacle_timer = 0
+    OBSTACLE_INTERVAL = 2000
+
     AUMENTAR_VELOCIDADE_EVENT = pygame.USEREVENT + 1
     pygame.time.set_timer(AUMENTAR_VELOCIDADE_EVENT, 20000) 
 
@@ -158,12 +164,21 @@ def game_loop(window, state):
         background_imagem.movimenta_background()  
         distancia_percorrida += velocidade_tela / 30
 
+        obstacle_timer += 1
+        
+        if obstacle_timer == OBSTACLE_INTERVAL:
+            Obstacle.add_obstacle(obstacles)
+            obstacle_timer = 0
+
         for obstacle in obstacles:
             obstacle.move_obstacle()
+            
             if player.rect_player.colliderect(obstacle.rect):
-                
                 pygame.quit()
                 return
+
+            if obstacle.rect.right < 0:
+                obstacle.reset_position()
 
         background_imagem.desenha_background(window)  
         player.desenha_player(window) 
