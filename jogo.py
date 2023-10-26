@@ -6,24 +6,61 @@ def inicializa():
     pygame.init()
     window = pygame.display.set_mode((largura_tela, altura_tela))
     pygame.display.set_caption('LabRun')
-    return window
+    player = Player() 
+    background_imagem = Background('background.png') 
+    obstacles = [Obstacle() for _ in range(10)]
+    state = {'player': player, 'background' : background_imagem, 'obstacles' : obstacles}
+
+    return window, state
 
 class Obstacle(pygame.sprite.Sprite):
     def __init__(self):
-        self.surface_obstacle = pygame.Surface((30, 30))
-        self.surface_obstacle.fill((255, 0, 0))
-        self.rect_obstacle = self.surface_obstacle.get_rect(
-            x=largura_tela, y=altura_tela * 0.5
-        )
+        self.sprite_obstacle_type_1 = []
+        self.sprite_obstacle_type_2 = []
+        # self.sprite_obstacle_type_3 = []
+
+        
+        self.sprite_obstacle_type_1.append(pygame.image.load('sprite/Snapshot.PNG'))
+        self.sprite_obstacle_type_1.append(pygame.image.load(f'sprite/Snapshot_1.PNG'))
+        self.sprite_obstacle_type_1.append(pygame.image.load(f'sprite/Snapshot_2.PNG'))
+        self.sprite_obstacle_type_1.append(pygame.image.load(f'sprite/Snapshot_3.PNG'))
+        self.sprite_obstacle_type_1.append(pygame.image.load(f'sprite/Snapshot_4.PNG'))
+        self.sprite_obstacle_type_1.append(pygame.image.load(f'sprite/Snapshot_5.PNG'))
+        self.sprite_obstacle_type_1.append(pygame.image.load(f'sprite/Snapshot_6.PNG'))
+        
+        self.sprite_obstacle_type_2.append(pygame.image.load(f'sprite/Snapshot_7.PNG'))
+        self.sprite_obstacle_type_2.append(pygame.image.load(f'sprite/Snapshot_8.PNG'))
+        self.sprite_obstacle_type_2.append(pygame.image.load(f'sprite/Snapshot_9.PNG'))
+        self.sprite_obstacle_type_2.append(pygame.image.load(f'sprite/Snapshot_10.PNG'))
+        self.sprite_obstacle_type_2.append(pygame.image.load(f'sprite/Snapshot_11.PNG'))
+        self.sprite_obstacle_type_2.append(pygame.image.load(f'sprite/Snapshot_12.PNG'))
+        
+        # self.sprite_obstacle_type_3.append(pygame.image.load(f'sprite/Snapshot_13.PNG'))
+        # self.sprite_obstacle_type_3.append(pygame.image.load(f'sprite/Snapshot_14.PNG'))
+        # self.sprite_obstacle_type_3.append(pygame.image.load(f'sprite/Snapshot_15.PNG'))
+        # self.sprite_obstacle_type_3.append(pygame.image.load(f'sprite/Snapshot_16.PNG'))
+        # self.sprite_obstacle_type_3.append(pygame.image.load(f'sprite/Snapshot_17.PNG'))
+        # self.sprite_obstacle_type_3.append(pygame.image.load(f'sprite/Snapshot_18.PNG'))
+        # self.sprite_obstacle_type_3.append(pygame.image.load(f'sprite/Snapshot_19.PNG'))
+
+        self.obstacle_type = random.choice([self.sprite_obstacle_type_1, self.sprite_obstacle_type_2])
+        self.current_frame = 0
+
+        self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + 50, y=altura_tela * 0.5)
 
     def move_obstacle(self):
-        self.rect_obstacle.x -= velocidade_tela
-        if self.rect_obstacle.right < 0:
-            self.rect_obstacle.x = random.randint (largura_tela, largura_tela * 2)
-            self.rect_obstacle.y = random.randint(100, altura_tela - 100)  
+        # self.rect_obstacle.x -= velocidade_tela
+        # if self.rect_obstacle.right < 0:
+            # self.rect_obstacle.x = random.randint (largura_tela, largura_tela * 2)
+            # self.rect_obstacle.y = random.randint(100, altura_tela - 100)  
+        self.current_frame = (self.current_frame + 1) % len(self.obstacle_type)
+        # self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela, y=random.randint(100, altura_tela - 100))
+        self.rect.x -= velocidade_tela
 
     def draw_obstacle(self, window):
-        window.blit(self.surface_obstacle, self.rect_obstacle)
+        
+        window.blit(self.obstacle_type[self.current_frame], (self.rect.x, self.rect.y))
+        print(self.rect)
 
 
 class Player(pygame.sprite.Sprite):
@@ -93,15 +130,14 @@ class Background(pygame.sprite.Sprite):
 
 
 
-def game_loop(window):
+def game_loop(window, state):
     
-    player = Player() 
-    background_imagem = Background('background.png') 
-
+    player = state['player']
+    background_imagem = state['background']
+    obstacles = state['obstacles']
     distancia_percorrida = 0
     fonte = pygame.font.Font(None, 36) 
 
-    obstacles = [Obstacle() for _ in range(10)]
 
 
     while True:
@@ -116,7 +152,7 @@ def game_loop(window):
 
         for obstacle in obstacles:
             obstacle.move_obstacle()
-            if player.rect_player.colliderect(obstacle.rect_obstacle):
+            if player.rect_player.colliderect(obstacle.rect):
                 
                 pygame.quit()
                 return
@@ -135,5 +171,5 @@ def game_loop(window):
 
 
 if __name__ == '__main__':
-    w = inicializa()
-    game_loop(w)
+    w, s = inicializa()
+    game_loop(w, s)
