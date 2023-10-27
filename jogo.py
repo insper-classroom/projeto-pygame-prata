@@ -43,24 +43,21 @@ class Obstacle(pygame.sprite.Sprite):
         # self.sprite_obstacle_type_3.append(pygame.image.load(f'sprite/Snapshot_18.PNG'))
         # self.sprite_obstacle_type_3.append(pygame.image.load(f'sprite/Snapshot_19.PNG'))
 
-        self.obstacle_type = random.choice([self.sprite_obstacle_type_1, self.sprite_obstacle_type_2])
+        self.obstacle_type = random.choice([self.sprite_obstacle_type_1, self.sprite_obstacle_type_2]) 
         self.current_frame = 0
-
+        
+        # self.mask = pygame.mask.from_surface(self.obstacle_type[self.current_frame])
         self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + 50, y=altura_tela * 0.5)
 
     def move_obstacle(self):
-        # self.rect_obstacle.x -= velocidade_tela
-        # if self.rect_obstacle.right < 0:
-            # self.rect_obstacle.x = random.randint (largura_tela, largura_tela * 2)
-            # self.rect_obstacle.y = random.randint(100, altura_tela - 100)  
+    
         self.current_frame = (self.current_frame + 1) % len(self.obstacle_type)
-        # self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela, y=random.randint(100, altura_tela - 100))
+        self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela, y=random.randint(100, altura_tela - 100))
         self.rect.x -= velocidade_tela
 
     def draw_obstacle(self, window):
-        
-        window.blit(self.obstacle_type[self.current_frame], (self.rect.x, self.rect.y))
-        print(self.rect)
+        window.blit(self.obstacle_type[self.current_frame], (self.mask.x, self.rect.y))
+    
 
 
 class Player(pygame.sprite.Sprite):
