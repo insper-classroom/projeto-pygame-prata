@@ -1,5 +1,6 @@
 import pygame 
-from constantes import *
+from constantes import largura_tela, altura_tela, altura_chao
+from game_loop import *
 
 
 class Player(pygame.sprite.Sprite):

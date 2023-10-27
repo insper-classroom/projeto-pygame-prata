@@ -11,7 +11,7 @@ def inicializa():
     player = Player() 
     background_imagem = Background('background.png') 
     obstacles = [Obstacle() for _ in range(4)]
-    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group()}
+    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela}
     state["grupo_obstacles"].add(obstacles)
 
     return window, state

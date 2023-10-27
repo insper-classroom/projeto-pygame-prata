@@ -1,5 +1,7 @@
 import pygame 
-from constantes import *
+from constantes import largura_tela, altura_tela
+from game_loop import *
+
 
 class Background(pygame.sprite.Sprite):
     
@@ -10,10 +12,10 @@ class Background(pygame.sprite.Sprite):
         self.rect_background_direita = self.surface_background.get_rect(topleft=(largura_tela, 0))
         pygame.sprite.Sprite.__init__(self)
 
-    def movimenta_background(self):
+    def movimenta_background(self, state):
         
-        self.rect_background_esquerda.x -= velocidade_tela
-        self.rect_background_direita.x -= velocidade_tela 
+        self.rect_background_esquerda.x -= state ["velocidade_tela"]
+        self.rect_background_direita.x -= state ["velocidade_tela"] 
 
         if self.rect_background_esquerda.x <= -largura_tela:
             self.rect_background_esquerda.x = largura_tela
