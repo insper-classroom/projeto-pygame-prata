@@ -1,4 +1,3 @@
-from constantes import *
 from inicializa_tela_jogo import inicializa
 from game_loop import game_loop
 

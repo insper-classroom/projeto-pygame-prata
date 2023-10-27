@@ -1,6 +1,6 @@
 import pygame 
 import random
-from constantes import *
+from game_loop import *
 
 class Obstacle(pygame.sprite.Sprite):
     def __init__(self):
@@ -32,9 +32,8 @@ class Obstacle(pygame.sprite.Sprite):
 
         pygame.sprite.Sprite.__init__(self)
 
-        self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + random.randint (0,300), y=altura_tela * random.uniform(0.3, 0.7))
-
-    def movimenta_e_anima_obstacle(self):
+        self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + random.randint (0,900), y=random.randint(0, altura_tela - self.obstacle_type[self.current_frame].get_height()))
+    def movimenta_e_anima_obstacle(self, state):
 
         self.animation_counter += 1
         
@@ -42,11 +41,12 @@ class Obstacle(pygame.sprite.Sprite):
             self.current_frame = (self.current_frame + 1) % len(self.obstacle_type)
             self.animation_counter = 0
         
-        self.rect.x -= velocidade_tela
+        self.rect.x -= state ["velocidade_tela"]
 
     def reset_posicao(self):
         self.rect.x = largura_tela + random.randint (0, 600)  
-        self.rect.y = random.randint(300 , altura_tela) 
+        max_y = altura_tela - self.rect.height
+        self.rect.y = random.randint(300, max_y)
 
     def adiciona_obstacles (self, state):
 

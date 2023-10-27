@@ -1,8 +1,8 @@
 import pygame 
-from constantes import *
-from classe_player import Player
-from classe_background import Background
+from classe_player import *
+from classe_background import *
 from classe_obstacles import Obstacle
+from constantes import largura_tela, altura_tela, velocidade_tela, QUANTIDADE_AUMENTO_VELOCIDADE
 
 def game_loop(window, state):
     
@@ -25,15 +25,15 @@ def game_loop(window, state):
 
             elif event.type == AUMENTAR_VELOCIDADE_EVENT:
                 global velocidade_tela
-                velocidade_tela += QUANTIDADE_AUMENTO_VELOCIDADE
+                state ['velocidade_tela'] += QUANTIDADE_AUMENTO_VELOCIDADE
 
         player.movimenta_player()  
-        background_imagem.movimenta_background()  
+        background_imagem.movimenta_background(state)  
         distancia_percorrida += velocidade_tela / 30
 
 
         for obstacle in state ["grupo_obstacles"]:
-            obstacle.movimenta_e_anima_obstacle()
+            obstacle.movimenta_e_anima_obstacle(state)
             
             if player.rect_player.colliderect(obstacle.rect):
                 pygame.quit()
