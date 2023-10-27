@@ -36,7 +36,7 @@ class Obstacle(pygame.sprite.Sprite):
         self.sprite_obstacle_type_2.append(pygame.image.load(f'sprite/Snapshot_12.PNG'))
         
 
-        self.obstacle_type = random.choice([self.sprite_obstacle_type_1, self.sprite_obstacle_type_2])
+        self.obstacle_type = random.choice([self.sprite_obstacle_type_1, self.sprite_obstacle_type_2]) 
         self.current_frame = 0
 
         self.animation_interval = 7
@@ -49,6 +49,7 @@ class Obstacle(pygame.sprite.Sprite):
     def movimenta_e_anima_obstacle(self):
 
         self.animation_counter += 1
+        
         if self.animation_counter == self.animation_interval:
             self.current_frame = (self.current_frame + 1) % len(self.obstacle_type)
             self.animation_counter = 0
@@ -65,11 +66,13 @@ class Obstacle(pygame.sprite.Sprite):
             self.reset_posicao()
         
         state ["grupo_obstacles"].add(self)
-
-    def desenha_obstacles(self, window):
         
-        window.blit(self.obstacle_type[self.current_frame], (self.rect.x, self.rect.y))
+        
+    def draw_obstacle(self, window):
 
+        window.blit(self.obstacle_type[self.current_frame], (self.rect.x, self.rect.y))
+        
+        
 
 class Player(pygame.sprite.Sprite):
     
