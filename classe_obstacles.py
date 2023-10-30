@@ -43,7 +43,7 @@ class Obstacle(pygame.sprite.Sprite):
 
         pygame.sprite.Sprite.__init__(self)
 
-        self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + random.randint (100,900), y=random.randint(100, altura_tela - self.obstacle_type[self.current_frame].get_height()))
+        self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + random.randint (100,900), y=random.randint(0, altura_tela - self.obstacle_type[self.current_frame].get_height()))
     
 
     """
