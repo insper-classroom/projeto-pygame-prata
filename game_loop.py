@@ -68,6 +68,12 @@ def game_loop(window, state):
         if state ['tela'] == "game_over":
             show_game_over_screen(window)
 
+            for evento in pygame.event.get():
+                
+                if evento.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+
             
         if state ['tela'] == "inicio":
             show_tela_inicio(window)
