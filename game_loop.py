@@ -35,7 +35,14 @@ def game_loop(window, state):
         Caso o jogo esteja rodando na tela de jogo, ou seja, funcionamento normal do jogo
         """
         if state ['tela'] == "jogo":
-            
+
+            """
+            Toca a música principal do jogo
+            """
+
+            if state ["musica_tocando"] == False:
+                state ["musica_principal"].play()
+                state ["musica_tocando"] = True
 
             """"
             Desenha os componentes do jogo na tela (background, player)
@@ -100,7 +107,10 @@ def game_loop(window, state):
         """
 
         if state ['tela'] == "game_over":
+            
             show_game_over_screen(window)
+            state ["musica_principal"].stop()
+            state ["musica_tocando"] = False
 
             for evento in pygame.event.get():
                 
