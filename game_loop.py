@@ -6,9 +6,16 @@ from constantes import largura_tela, altura_tela, velocidade_tela, QUANTIDADE_AU
 from tela_game_over import show_game_over_screen
 from tela_inicio import show_tela_inicio
 
+"""
+Função que roda o jogo em um loop infinito
+"""
 
 def game_loop(window, state):
     
+    """
+    Variáveis do jogo
+    """
+
     player = state['player']
     background_imagem = state['background']
     distancia_percorrida = 0
@@ -18,15 +25,28 @@ def game_loop(window, state):
     pygame.time.set_timer(AUMENTAR_VELOCIDADE_EVENT, 20000) 
 
 
+    """
+    Loop infinito do jogo
+    """
 
     while True:
 
-
+        """
+        Caso o jogo esteja rodando na tela de jogo, ou seja, funcionamento normal do jogo
+        """
         if state ['tela'] == "jogo":
             
+
+            """"
+            Desenha os componentes do jogo na tela (background, player)
+            """
             background_imagem.desenha_background(window)  
             player.desenha_player(window)
             
+
+            """
+            Velociodade aumenta com o passar do tempo jogando
+            """
             for event in pygame.event.get():
                 
                 if event.type == AUMENTAR_VELOCIDADE_EVENT:
@@ -37,7 +57,9 @@ def game_loop(window, state):
                     pygame.quit()
                     return 
 
-                
+            """
+            Movimentação dos componentes do jogo
+            """
 
             player.movimenta_player()  
             background_imagem.movimenta_background(state)  
@@ -46,24 +68,36 @@ def game_loop(window, state):
             for obstacle in state ["grupo_obstacles"]:
                 obstacle.movimenta_e_anima_obstacle(state)
                 
+
+                """
+                Caso o player colida com um obstáculo, o jogo acaba e a tela de game over é mostrada
+                """
                 if player.rect_player.colliderect(obstacle.rect):
                     show_game_over_screen(window)
                     state ["tela"] = "game_over"
 
-            
+                """
+                Caso o obstáculo saia da tela, ele é removido e um novo obstáculo é adicionado
+                """            
                 if obstacle.rect.x < -obstacle.rect.width:
                     obstacle.kill()
                     novo_obstacle = Obstacle()
                     novo_obstacle.adiciona_obstacles(state)
 
             
+            """
+            Mostra a distância percorrida na tela
+            """
+
             texto_distancia = fonte.render(f"{int(distancia_percorrida)} M", True, (255, 255, 255))
             window.blit(texto_distancia, (largura_tela * 0.9, altura_tela * 0.03))
     
             for obstacle in state ["grupo_obstacles"]:
                 obstacle.desenha_obstacles(window)
 
-         
+        """
+        Caso o jogo esteja rodando na tela de game over
+        """
 
         if state ['tela'] == "game_over":
             show_game_over_screen(window)
@@ -74,6 +108,10 @@ def game_loop(window, state):
                     pygame.quit()
                     return
 
+
+        """
+        Caso o jogo esteja rodando na tela de início
+        """
             
         if state ['tela'] == "inicio":
             show_tela_inicio(window)
