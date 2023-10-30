@@ -33,6 +33,7 @@ class Obstacle(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + random.randint (0,900), y=random.randint(0, altura_tela - self.obstacle_type[self.current_frame].get_height()))
+    
     def movimenta_e_anima_obstacle(self, state):
 
         self.animation_counter += 1
