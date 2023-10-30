@@ -43,7 +43,7 @@ class Obstacle(pygame.sprite.Sprite):
 
         pygame.sprite.Sprite.__init__(self)
 
-        self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + random.randint (0,900), y=random.randint(0, altura_tela - self.obstacle_type[self.current_frame].get_height()))
+        self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + random.randint (100,900), y=random.randint(100, altura_tela - self.obstacle_type[self.current_frame].get_height()))
     
 
     """
@@ -65,7 +65,7 @@ class Obstacle(pygame.sprite.Sprite):
     Função que reseta a posição do obstáculo, caso ele surja na mesma posição que outro
     """
     def reset_posicao(self):
-        self.rect.x = largura_tela + random.randint (0, 600)  
+        self.rect.x = largura_tela + random.randint (100, 600)  
         max_y = altura_tela - self.rect.height
         self.rect.y = random.randint(300, max_y)
 
