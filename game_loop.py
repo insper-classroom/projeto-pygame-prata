@@ -45,15 +45,16 @@ def game_loop(window, state):
 
             for obstacle in state ["grupo_obstacles"]:
                 obstacle.movimenta_e_anima_obstacle(state)
+                
                 if player.rect_player.colliderect(obstacle.rect):
                     show_game_over_screen(window)
                     state ["tela"] = "game_over"
 
             
-            if obstacle.rect.x < -obstacle.rect.width:
-                obstacle.kill()
-                novo_obstacle = Obstacle()
-                novo_obstacle.adiciona_obstacles(state)
+                if obstacle.rect.x < -obstacle.rect.width:
+                    obstacle.kill()
+                    novo_obstacle = Obstacle()
+                    novo_obstacle.adiciona_obstacles(state)
 
             
             texto_distancia = fonte.render(f"{int(distancia_percorrida)} M", True, (255, 255, 255))
@@ -76,6 +77,7 @@ def game_loop(window, state):
             if tecla_apertada[pygame.K_SPACE]:
                 state ["tela"] = "jogo"     
 
+            
             event = pygame.event.get()
 
             for evento in event:
