@@ -77,6 +77,7 @@ def game_loop(window, state):
             if tecla_apertada[pygame.K_SPACE]:
                 state ["tela"] = "jogo"     
 
+            
             event = pygame.event.get()
 
             for evento in event:
