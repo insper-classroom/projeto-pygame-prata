@@ -2,7 +2,18 @@ import pygame
 import random
 from game_loop import *
 
+
+"""
+classe que representa os obstáculos
+"""
+
+
 class Obstacle(pygame.sprite.Sprite):
+    
+    """
+    Construtor da classe, definição de variáveis e inicialização de sprites
+    """
+
     def __init__(self):
         self.sprite_obstacle_type_1 = []
         self.sprite_obstacle_type_2 = []
@@ -34,6 +45,11 @@ class Obstacle(pygame.sprite.Sprite):
 
         self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + random.randint (0,900), y=random.randint(0, altura_tela - self.obstacle_type[self.current_frame].get_height()))
     
+
+    """
+    Função que movimenta e anima o obstáculo
+    """
+
     def movimenta_e_anima_obstacle(self, state):
 
         self.animation_counter += 1
@@ -44,10 +60,18 @@ class Obstacle(pygame.sprite.Sprite):
         
         self.rect.x -= state ["velocidade_tela"]
 
+
+    """
+    Função que reseta a posição do obstáculo, caso ele surja na mesma posição que outro
+    """
     def reset_posicao(self):
         self.rect.x = largura_tela + random.randint (0, 600)  
         max_y = altura_tela - self.rect.height
         self.rect.y = random.randint(300, max_y)
+
+    """
+    Função que adiciona o obstáculo ao grupo de obstáculos do jogo, assim o validando
+    """
 
     def adiciona_obstacles (self, state):
 
@@ -55,8 +79,11 @@ class Obstacle(pygame.sprite.Sprite):
             self.reset_posicao()
         
         state ["grupo_obstacles"].add(self)
+   
         
-        
+    """
+    Função que desenha o obstáculo na tela
+    """
     def desenha_obstacles(self, window):
 
         window.blit(self.obstacle_type[self.current_frame], (self.rect.x, self.rect.y))
