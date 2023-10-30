@@ -8,4 +8,4 @@ from game_loop import game_loop
 
 if __name__ == '__main__':
     w, s = inicializa()
-    game_loop(w, s)
+    game_loop(w, s) 

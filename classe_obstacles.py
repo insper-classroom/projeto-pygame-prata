@@ -43,7 +43,7 @@ class Obstacle(pygame.sprite.Sprite):
 
         pygame.sprite.Sprite.__init__(self)
 
-        self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + random.randint (100,900), y=random.randint(0, altura_tela - self.obstacle_type[self.current_frame].get_height()))
+        self.rect = self.obstacle_type[self.current_frame].get_rect(x=largura_tela + random.randint (100,900), y=random.randint(0, altura_tela - 20 - self.obstacle_type[self.current_frame].get_height()))
     
 
     """
@@ -66,7 +66,7 @@ class Obstacle(pygame.sprite.Sprite):
     """
     def reset_posicao(self):
         self.rect.x = largura_tela + random.randint (100, 600)  
-        max_y = altura_tela - self.rect.height
+        max_y = altura_tela - self.rect.height - 20
         self.rect.y = random.randint(300, max_y)
 
     """

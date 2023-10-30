@@ -11,6 +11,7 @@ Inicialização do jogo seus componentes
 
 def inicializa():
     pygame.init()
+    pygame.mixer.init()
    
     """
     Inicialização da tela do jogo
@@ -25,7 +26,10 @@ def inicializa():
     player = Player() 
     background_imagem = Background('background.png') 
     obstacles = [Obstacle() for _ in range(4)]
-    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela, "tela" : "inicio"}
+
+    pygame.mixer.music.load('main-theme.mp3')
+
+    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela, "tela" : "inicio", "musica_principal" : pygame.mixer.music, "musica_tocando" : False}
     state["grupo_obstacles"].add(obstacles)
 
     return window, state
