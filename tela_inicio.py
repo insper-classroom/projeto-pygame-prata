@@ -16,4 +16,3 @@ Função que mostra a tela inicial
 
 def show_tela_inicio(window):
     window.blit(telainicio, (0, 0))
-    pygame.display.flip()
