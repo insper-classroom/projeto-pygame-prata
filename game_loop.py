@@ -91,6 +91,13 @@ def game_loop(window, state):
                     novo_obstacle = Obstacle()
                     novo_obstacle.adiciona_obstacles(state)
 
+
+            """
+            Adiciona novos obstáculos na tela
+            """
+            for obstacle in state ["grupo_obstacles"]:
+                obstacle.desenha_obstacles(window)
+
             
             """
             Mostra a distância percorrida na tela
@@ -99,9 +106,6 @@ def game_loop(window, state):
             texto_distancia = fonte_pixelizada.render(f"{int(distancia_percorrida)} M", True, (255, 255, 255))
             window.blit(texto_distancia, (largura_tela * 0.9, altura_tela * 0.03))
     
-            for obstacle in state ["grupo_obstacles"]:
-                obstacle.desenha_obstacles(window)
-
         """
         Caso o jogo esteja rodando na tela de game over
         """
@@ -114,7 +118,7 @@ def game_loop(window, state):
 
             fonte_pixelizada = state ["fonte_pixelixada"]
             texto_distancia = fonte_pixelizada.render(f"SCORE: {int(distancia_percorrida)}", True, (0,0,0))
-            window.blit(texto_distancia, (430, 369))
+            window.blit(texto_distancia, (425, 369))
 
             for evento in pygame.event.get():
                 
