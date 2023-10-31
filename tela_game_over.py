@@ -17,4 +17,3 @@ Função que mostra a tela de game over
 
 def show_game_over_screen(window):
     window.blit(telagameover, (0, 0))
-    pygame.display.flip()
