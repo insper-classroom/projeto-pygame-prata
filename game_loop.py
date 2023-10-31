@@ -57,7 +57,6 @@ def game_loop(window, state):
             for event in pygame.event.get():
                 
                 if event.type == AUMENTAR_VELOCIDADE_EVENT:
-                    global velocidade_tela
                     state ['velocidade_tela'] += QUANTIDADE_AUMENTO_VELOCIDADE
 
                 if event.type == pygame.QUIT:
@@ -70,7 +69,7 @@ def game_loop(window, state):
 
             player.movimenta_player()  
             background_imagem.movimenta_background(state)  
-            distancia_percorrida += velocidade_tela / 30
+            distancia_percorrida +=  state["velocidade_tela"] / 30
 
             for obstacle in state ["grupo_obstacles"]:
                 obstacle.movimenta_e_anima_obstacle(state)
@@ -120,12 +119,34 @@ def game_loop(window, state):
             texto_distancia = fonte_pixelizada.render(f"SCORE: {int(distancia_percorrida)}", True, (0,0,0))
             window.blit(texto_distancia, (425, 369))
 
+            texto_retry = fonte_pixelizada.render("CLIQUE EM QUALQUER LUGAR PARA REINICIAR", True, (255,255,255))
+            window.blit(texto_retry, (160, 450))
+
             for evento in pygame.event.get():
                 
                 if evento.type == pygame.QUIT:
                     pygame.quit()
                     return
+                
 
+                """
+                Caso o jogador clique em qualquer lugar da tela, o jogo é reiniciado
+                """
+
+                if evento.type == pygame.MOUSEBUTTONUP:
+                    state ["tela"] = "jogo"
+                    state ["velocidade_tela"] = velocidade_tela
+                    state ["player"] = player
+                    state ["grupo_obstacles"] = pygame.sprite.Group()
+                    
+                    for _ in range(4):  
+                        novo_obstacle = Obstacle()
+                        novo_obstacle.adiciona_obstacles(state)
+
+                    state ["background"] = background_imagem
+                    distancia_percorrida = 0
+                    state ["musica_tocando"] = False
+                    
 
         """
         Caso o jogo esteja rodando na tela de início
