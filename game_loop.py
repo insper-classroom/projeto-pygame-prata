@@ -154,11 +154,15 @@ def game_loop(window, state):
             
         if state ['tela'] == "inicio":
             show_tela_inicio(window)
+            
+            fonte_pixelizada = state ["fonte_pixelixada"]
+            texto_instrucao = fonte_pixelizada.render(f"PRESSIONE ESPACO PARA PULAR", True, (255, 255,255))
+            window.blit(texto_instrucao, (250, 470))
 
             tecla_apertada = pygame.key.get_pressed()
 
             if tecla_apertada[pygame.K_SPACE]:
-                state ["tela"] = "jogo"     
+                state ["tela"] = "jogo"
 
             
             event = pygame.event.get()
