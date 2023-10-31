@@ -25,13 +25,15 @@ def inicializa():
     """
     player = Player() 
     background_imagem = Background('background.png') 
-    obstacles = [Obstacle() for _ in range(4)]
 
     fonte_pixelixada = pygame.font.Font('fonte_pixelizada.ttf', 30)
 
     pygame.mixer.music.load('main-theme.mp3')
 
     state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela, "tela" : "inicio", "musica_principal" : pygame.mixer.music, "musica_tocando" : False, "fonte_pixelixada" : fonte_pixelixada}
-    state["grupo_obstacles"].add(obstacles)
+
+    for _ in range(4):
+        obstacle = Obstacle()
+        obstacle.adiciona_obstacles(state)
 
     return window, state
