@@ -56,9 +56,13 @@ header nav ul li {
     text-align: center;
 }
 
+h2{
+    font-size: 2rem;
+}
+
 h1 {
     font-size: 2rem;
-    color: #333; 
+    color: #FFD700; 
 }
 
 p {
@@ -84,4 +88,23 @@ header .btn-contato button{
 }
 */
 
+.section{
+    display: grid;
+    padding: 1rem;
+    /* gap: 4rem; */
+    grid-template-columns: repeat(2, 1fr);
+    margin: auto
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    line-height: 3rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+  
+  .title span {
+    font-weight: 800;
+  }
 
