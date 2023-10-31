@@ -17,13 +17,17 @@ class Player(pygame.sprite.Sprite):
         self.sprite_player_correndo = []
         self.sprite_player_pulando = []
 
-        self.sprite_player_correndo.append(pygame.image.load('sprites_player/playercorre1.png'))
-        self.sprite_player_correndo.append(pygame.image.load('sprites_player/playercorre2.png'))
-        self.sprite_player_correndo.append(pygame.image.load('sprites_player/playercorre3.png'))
+        self.largura_player = 50
+        self.altura_player = 70
+        
+        self.sprite_player_correndo.append(pygame.transform.scale(pygame.image.load('sprites_player/playercorre1.png'), (self.largura_player, self.altura_player)))
+        self.sprite_player_correndo.append(pygame.transform.scale(pygame.image.load('sprites_player/playercorre2.png'), (self.largura_player, self.altura_player)))
+        self.sprite_player_correndo.append(pygame.transform.scale(pygame.image.load('sprites_player/playercorre3.png'), (self.largura_player, self.altura_player)))
 
-        self.sprite_player_pulando.append(pygame.image.load('sprites_player/playerpula1.png'))
-        self.sprite_player_pulando.append(pygame.image.load('sprites_player/playerpula2.png'))
-        self.sprite_player_pulando.append(pygame.image.load('sprites_player/playerpula3.png'))
+        self.sprite_player_pulando.append(pygame.transform.scale(pygame.image.load('sprites_player/playerpula1.png'), (self.largura_player, self.altura_player)))
+        self.sprite_player_pulando.append(pygame.transform.scale(pygame.image.load('sprites_player/playerpula2.png'), (self.largura_player, self.altura_player)))
+        self.sprite_player_pulando.append(pygame.transform.scale(pygame.image.load('sprites_player/playerpula3.png'), (self.largura_player, self.altura_player)))
+
 
         self.current_frame_run= 0
         self.current_frame_jump= 0
