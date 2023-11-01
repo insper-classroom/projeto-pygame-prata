@@ -5,6 +5,8 @@ from classe_obstacles import Obstacle
 from constantes import largura_tela, altura_tela, velocidade_tela, QUANTIDADE_AUMENTO_VELOCIDADE
 from tela_game_over import show_game_over_screen
 from tela_inicio import show_tela_inicio
+import random
+from classe_item_imunidade import item_imunidade
 
 """
 Função que roda o jogo em um loop infinito
@@ -23,6 +25,8 @@ def game_loop(window, state):
 
     AUMENTAR_VELOCIDADE_EVENT = pygame.USEREVENT + 1
     pygame.time.set_timer(AUMENTAR_VELOCIDADE_EVENT, 20000) 
+
+    tempo_surgimento_item = pygame.time.get_ticks()
 
 
     """
@@ -45,10 +49,9 @@ def game_loop(window, state):
                 state ["musica_tocando"] = True
 
             """"
-            Desenha os componentes do jogo na tela (background, player)
+            Desenha background
             """
             background_imagem.desenha_background(window)  
-            player.desenha_player(window)
             
 
             """
@@ -62,12 +65,38 @@ def game_loop(window, state):
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return 
+                
+            """
+            Adiciona novos itens na tela e os movimenta 
+            """
+
+            for item in state ["grupo_itens"]:
+                    
+                    item.rect.x -= state ["velocidade_tela"]
+
+                    if item.rect.x < -item.rect.width:
+                        item.kill()
+
+                    item.desenha_item(window)
+                    
+            
+            if pygame.time.get_ticks() - tempo_surgimento_item > 50000:
+
+                tempo_surgimento_item = pygame.time.get_ticks()
+                novo_item = item_imunidade()
+                novo_item.adiciona_itens(state)
+
+            if player.rect_player.colliderect(item.rect):
+                player.imunidade = True
+                item.kill()
+                player.imune_counter = pygame.time.get_ticks()
+
 
             """
             Movimentação dos componentes do jogo
             """
 
-            player.movimenta_player()  
+            player.movimenta_player(state)  
             background_imagem.movimenta_background(state)  
             distancia_percorrida +=  state["velocidade_tela"] / 30
 
@@ -78,7 +107,7 @@ def game_loop(window, state):
                 """
                 Caso o player colida com um obstáculo, o jogo acaba e a tela de game over é mostrada
                 """
-                if player.rect_player.colliderect(obstacle.rect):
+                if player.rect_player.colliderect(obstacle.rect) and player.imunidade == False:
                     show_game_over_screen(window)
                     state ["tela"] = "game_over"
 
@@ -97,6 +126,11 @@ def game_loop(window, state):
             for obstacle in state ["grupo_obstacles"]:
                 obstacle.desenha_obstacles(window)
 
+            """
+            Desenha o player na tela
+            """
+            player.desenha_player(window)
+
             
             """
             Mostra a distância percorrida na tela
@@ -105,11 +139,14 @@ def game_loop(window, state):
             texto_distancia = fonte_pixelizada.render(f"{int(distancia_percorrida)} M", True, (255, 255, 255))
             window.blit(texto_distancia, (largura_tela * 0.9, altura_tela * 0.03))
     
+
+
+    
         """
         Caso o jogo esteja rodando na tela de game over
         """
 
-        if state ['tela'] == "game_over":
+        if state ['tela'] == "game_over" and player.imunidade == False:
             
             show_game_over_screen(window)
             state ["musica_principal"].stop()
@@ -146,7 +183,15 @@ def game_loop(window, state):
                     state ["background"] = background_imagem
                     distancia_percorrida = 0
                     state ["musica_tocando"] = False
+                    state ["grupo_itens"] = pygame.sprite.Group ()
+
+                    for _ in range (1):
+                        item = item_imunidade()
+                        item.adiciona_itens(state)
                     
+
+
+
 
         """
         Caso o jogo esteja rodando na tela de início
@@ -157,7 +202,7 @@ def game_loop(window, state):
             
             fonte_pixelizada = state ["fonte_pixelixada"]
             texto_instrucao = fonte_pixelizada.render(f"PRESSIONE ESPACO PARA PULAR", True, (255, 255,255))
-            window.blit(texto_instrucao, (250, 470))
+            window.blit(texto_instrucao, (250, 465))
 
             tecla_apertada = pygame.key.get_pressed()
 
