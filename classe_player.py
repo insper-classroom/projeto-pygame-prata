@@ -31,6 +31,10 @@ class Player(pygame.sprite.Sprite):
         self.sprite_player_pulando.append(pygame.transform.scale(pygame.image.load('sprites_player/playerpula2.png'), (self.largura_player, self.altura_player)))
         self.sprite_player_pulando.append(pygame.transform.scale(pygame.image.load('sprites_player/playerpula3.png'), (self.largura_player, self.altura_player)))
 
+        self.original_sprite_player_correndo = self.sprite_player_correndo.copy()
+        self.original_sprite_player_pulando = self.sprite_player_pulando.copy()
+
+
 
         """
         Variáveis de controle de animação e movimentação do player
@@ -147,10 +151,10 @@ class Player(pygame.sprite.Sprite):
     def atualiza_escala_player(self):
 
         escala = (self.largura_player, self.altura_player)
-    
-        self.sprite_player_correndo = [pygame.transform.scale(image, escala) for image in self.sprite_player_correndo]
-        
-        self.sprite_player_pulando = [pygame.transform.scale(image, escala) for image in self.sprite_player_pulando]
+
+        self.sprite_player_correndo = [pygame.transform.scale(image, escala) for image in self.original_sprite_player_correndo]
+        self.sprite_player_pulando = [pygame.transform.scale(image, escala) for image in self.original_sprite_player_pulando]
+
 
     """
     Função que desenha o player na tela e controla sua animação de acordo com o estado
