@@ -78,18 +78,18 @@ def game_loop(window, state):
                         item.kill()
 
                     item.desenha_item(window)
+
+                    if player.rect_player.colliderect(item.rect):
+                        player.imunidade = True
+                        item.kill()
+                        player.imune_counter = pygame.time.get_ticks()
                     
             
-            if pygame.time.get_ticks() - tempo_surgimento_item > 50000:
+            if pygame.time.get_ticks() - tempo_surgimento_item > 20000:
 
                 tempo_surgimento_item = pygame.time.get_ticks()
                 novo_item = item_imunidade()
                 novo_item.adiciona_itens(state)
-
-            if player.rect_player.colliderect(item.rect):
-                player.imunidade = True
-                item.kill()
-                player.imune_counter = pygame.time.get_ticks()
 
 
             """
