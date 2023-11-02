@@ -3,6 +3,7 @@ from constantes import *
 from classe_player import Player
 from classe_obstacles import Obstacle
 from classe_background import Background
+from classe_item_imunidade import item_imunidade
 
 
 """
@@ -30,10 +31,14 @@ def inicializa():
 
     pygame.mixer.music.load('main-theme.mp3')
 
-    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela, "tela" : "inicio", "musica_principal" : pygame.mixer.music, "musica_tocando" : False, "fonte_pixelixada" : fonte_pixelixada}
+    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela, "tela" : "inicio", "musica_principal" : pygame.mixer.music, "musica_tocando" : False, "fonte_pixelixada" : fonte_pixelixada, "grupo_itens" : pygame.sprite.Group ()}
 
     for _ in range(4):
         obstacle = Obstacle()
         obstacle.adiciona_obstacles(state)
+
+    for _ in range (1):
+        item = item_imunidade()
+        item.adiciona_itens(state)
 
     return window, state

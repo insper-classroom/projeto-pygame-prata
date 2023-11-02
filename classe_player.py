@@ -17,6 +17,9 @@ class Player(pygame.sprite.Sprite):
         self.sprite_player_correndo = []
         self.sprite_player_pulando = []
 
+        """
+        Inicialização do sprite do player
+        """
         self.largura_player = 50
         self.altura_player = 70
         
@@ -28,6 +31,14 @@ class Player(pygame.sprite.Sprite):
         self.sprite_player_pulando.append(pygame.transform.scale(pygame.image.load('sprites_player/playerpula2.png'), (self.largura_player, self.altura_player)))
         self.sprite_player_pulando.append(pygame.transform.scale(pygame.image.load('sprites_player/playerpula3.png'), (self.largura_player, self.altura_player)))
 
+        self.original_sprite_player_correndo = self.sprite_player_correndo.copy()
+        self.original_sprite_player_pulando = self.sprite_player_pulando.copy()
+
+
+
+        """
+        Variáveis de controle de animação e movimentação do player
+        """
 
         self.current_frame_run= 0
         self.current_frame_jump= 0
@@ -47,12 +58,14 @@ class Player(pygame.sprite.Sprite):
         self.altura_chao = altura_chao
         self.is_jumping = False
 
+        self.imunidade = False 
+        self.imune_duration = 5000
 
     """
     Função que movimenta o player
     """
 
-    def movimenta_player(self):
+    def movimenta_player(self, state):
         
         tecla_apertada = pygame.key.get_pressed()
 
@@ -107,6 +120,42 @@ class Player(pygame.sprite.Sprite):
         if tecla_apertada[pygame.K_SPACE]:
             self.velocidade_vertical = -self.impulso
 
+
+        """
+        Controla a imunidade do player
+        """
+
+        if self.imunidade:
+            self.largura_player = 200
+            self.altura_player = 300
+            self.rect_player.size = (self.largura_player, self.altura_player)
+            self.atualiza_escala_player()
+
+
+        """"
+        Controla fim da imunidade do player
+        """
+
+        if self.imunidade and pygame.time.get_ticks() - self.imune_counter > self.imune_duration:
+            self.imunidade = False
+            self.largura_player = 50
+            self.altura_player = 70
+            self.rect_player.size = (self.largura_player, self.altura_player)
+            self.atualiza_escala_player()
+
+
+    """
+    Função que atualiza escala da sprite do player
+    """     
+
+    def atualiza_escala_player(self):
+
+        escala = (self.largura_player, self.altura_player)
+
+        self.sprite_player_correndo = [pygame.transform.scale(image, escala) for image in self.original_sprite_player_correndo]
+        self.sprite_player_pulando = [pygame.transform.scale(image, escala) for image in self.original_sprite_player_pulando]
+
+
     """
     Função que desenha o player na tela e controla sua animação de acordo com o estado
     """
@@ -122,3 +171,4 @@ class Player(pygame.sprite.Sprite):
                 self.animation_counter_run = 0
 
         window.blit(player_image, self.rect_player)
+
