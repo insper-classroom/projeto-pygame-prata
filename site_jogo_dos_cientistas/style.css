@@ -66,8 +66,24 @@ h1 {
 }
 
 p {
+    padding-right: 2rem;
     font-size: 1.2rem;
+    font-weight: 500;
+    display: grid;
+    text-align: justify;
+    grid-template-columns:repeat(2,1fr);
 }
+
+
+content{
+    /* padding: 1.5rem;
+    margin: auto;
+    display: grid; */
+    display: flex;  
+    flex-direction: column;
+    justify-content: center;
+}
+
 
 footer {
     background-color: #333;
@@ -76,23 +92,11 @@ footer {
     text-align: center;
 }
 
-/*
-header .btn-contato button{
-    padding: 10px 40px;
-    font-size: 18px;
-    font-weight: 600;
-    background-color: yellow;
-    border: 0;
-    border-radius: 30px;
-    cursor: pointer;
-}
-*/
-
 .section{
-    display: grid;
-    padding: 1rem;
+    
+    padding: 2rem;
     /* gap: 4rem; */
-    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-columns: repeat(2, 1fr); */
     margin: auto
 }
 
@@ -106,5 +110,11 @@ header .btn-contato button{
   
   .title span {
     font-weight: 800;
+  }
+  
+  .image img {
+    width: min(22rem, 90%);
+    border-radius: 100%;
+    align-items: center;
   }
 
