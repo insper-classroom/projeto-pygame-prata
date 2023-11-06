@@ -53,7 +53,7 @@ def game_loop(window, state):
             Desenha background
             """
             background_imagem.desenha_background(window)  
-            
+                
 
             """
             Velociodade aumenta com o passar do tempo jogando
