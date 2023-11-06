@@ -59,7 +59,9 @@ class Player(pygame.sprite.Sprite):
         self.is_jumping = False
 
         self.imunidade = False 
-        self.imune_duration = 5000
+        self.imune_duration = 7000
+
+        self.timer = 0
 
     """
     Função que movimenta o player
@@ -176,5 +178,7 @@ class Player(pygame.sprite.Sprite):
                 self.current_frame_run = (self.current_frame_run + 1) % len(self.sprite_player_correndo)
                 self.animation_counter_run = 0
 
+        if self.timer > 0 and self.timer % 30 < 15:
+            return 
+        
         window.blit(player_image, self.rect_player)
-
