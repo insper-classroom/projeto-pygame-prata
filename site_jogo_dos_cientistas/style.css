@@ -6,6 +6,10 @@
     font-family: 'Inconsolata', monospace;
 }
 
+.flex{
+    display: flex;
+    grid-template-columns: repeat(2, 1fr);
+}
 
 body {
     background-color: #00B7FF;
@@ -64,40 +68,47 @@ h1 {
     font-size: 2rem;
     color: #FFD700; 
 }
-
+ 
 p {
-    padding-right: 2rem;
     font-size: 1.2rem;
+    margin: 40px 0;
+    padding-right: 40px ;
     font-weight: 500;
-    display: grid;
-    text-align: justify;
-    grid-template-columns:repeat(2,1fr);
 }
 
 
-content{
-    /* padding: 1.5rem;
+.container {
+    padding: 1.5rem;
     margin: auto;
-    display: grid; */
-    display: flex;  
+    display: grid;  
     flex-direction: column;
     justify-content: center;
+    grid-template-columns: (2,1fr);
 }
 
+.button-jogar button{
+    padding: 10px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: white;
+    border: 0;
+    border-radius: 30px;
+    cursor: pointer;
+} 
 
-footer {
+/* footer {
     background-color: #333;
     color: white;
     padding: 20px;
     text-align: center;
-}
+} */
 
-.section{
+.section{ 
     
-    padding: 2rem;
-    /* gap: 4rem; */
-    /* grid-template-columns: repeat(2, 1fr); */
-    margin: auto
+    padding: 2rem; 
+    gap: 4rem; 
+    grid-template-columns: repeat(2, 1fr); 
+    margin: auto 
 }
 
 .title {
@@ -113,8 +124,24 @@ footer {
   }
   
   .image img {
-    width: min(22rem, 90%);
-    border-radius: 100%;
+    width: min(22rem, 100%);
+    border-radius: 20%;
     align-items: center;
   }
+
+  .barra{
+    color: #FFD700;
+  }
+
+/* topo do site */
+section.topo-do-site{
+    padding: 40px 4%;
+}
+
+section.topo-do-site.flex{
+    align-items: center;
+    justify-content: center;
+}
+
+
 
