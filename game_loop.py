@@ -85,7 +85,7 @@ def game_loop(window, state):
                         player.imune_counter = pygame.time.get_ticks()
                     
             
-            if pygame.time.get_ticks() - tempo_surgimento_item > 20000:
+            if pygame.time.get_ticks() - tempo_surgimento_item > 30000:
 
                 tempo_surgimento_item = pygame.time.get_ticks()
                 novo_item = item_imunidade()
