@@ -29,9 +29,11 @@ def inicializa():
 
     fonte_pixelixada = pygame.font.Font('fonte_pixelizada.ttf', 30)
 
+    fonte_coracao = pygame.font.Font ("PressStart2P.ttf", 30)
+
     pygame.mixer.music.load('main-theme.mp3')
 
-    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela, "tela" : "inicio", "musica_principal" : pygame.mixer.music, "musica_tocando" : False, "fonte_pixelixada" : fonte_pixelixada, "grupo_itens" : pygame.sprite.Group ()}
+    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela, "tela" : "inicio", "musica_principal" : pygame.mixer.music, "musica_tocando" : False, "fonte_pixelizada" : fonte_pixelixada, "grupo_itens" : pygame.sprite.Group (), "vidas": 3, "fonte_coracao" : fonte_coracao}
 
     for _ in range(4):
         obstacle = Obstacle()

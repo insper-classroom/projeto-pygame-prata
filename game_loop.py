@@ -105,11 +105,17 @@ def game_loop(window, state):
                 
 
                 """
-                Caso o player colida com um obstáculo, o jogo acaba e a tela de game over é mostrada
+                Caso o player colida com um obstáculo, ele perde uma vida e morre quando elas chegam a 0
                 """
                 if player.rect_player.colliderect(obstacle.rect) and player.imunidade == False:
-                    show_game_over_screen(window)
-                    state ["tela"] = "game_over"
+                    
+                    if state ["vidas"] > 0:
+                        state ["vidas"] -= 1
+                        obstacle.kill ()
+                    
+                    if state ["vidas"] <= 0:
+                        show_game_over_screen(window)
+                        state ["tela"] = "game_over"
 
                 """
                 Caso o obstáculo saia da tela, ele é removido e um novo obstáculo é adicionado
@@ -135,10 +141,19 @@ def game_loop(window, state):
             """
             Mostra a distância percorrida na tela
             """
-            fonte_pixelizada = state ["fonte_pixelixada"]
+            fonte_pixelizada = state ["fonte_pixelizada"]
             texto_distancia = fonte_pixelizada.render(f"{int(distancia_percorrida)} M", True, (255, 255, 255))
-            window.blit(texto_distancia, (largura_tela * 0.9, altura_tela * 0.03))
+            window.blit(texto_distancia, (largura_tela * 0.9, altura_tela * 0.12))
     
+
+            """
+            Mostra as vidas na tela 
+            """
+            fonte_coracao = state ["fonte_coracao"]
+            coracao = chr (9829)
+            coracoes = coracao * state ["vidas"]
+            texto_vidas = fonte_coracao.render(f"{coracoes}", True, (255, 0, 0))
+            window.blit (texto_vidas, (largura_tela * 0.9, altura_tela * 0.04))
 
 
     
@@ -152,7 +167,7 @@ def game_loop(window, state):
             state ["musica_principal"].stop()
             state ["musica_tocando"] = False
 
-            fonte_pixelizada = state ["fonte_pixelixada"]
+            fonte_pixelizada = state ["fonte_pixelizada"]
             texto_distancia = fonte_pixelizada.render(f"SCORE: {int(distancia_percorrida)}", True, (0,0,0))
             window.blit(texto_distancia, (425, 369))
 
@@ -184,6 +199,7 @@ def game_loop(window, state):
                     distancia_percorrida = 0
                     state ["musica_tocando"] = False
                     state ["grupo_itens"] = pygame.sprite.Group ()
+                    state ["vidas"] = 3
 
                     for _ in range (1):
                         item = item_imunidade()
@@ -200,7 +216,7 @@ def game_loop(window, state):
         if state ['tela'] == "inicio":
             show_tela_inicio(window)
             
-            fonte_pixelizada = state ["fonte_pixelixada"]
+            fonte_pixelizada = state ["fonte_pixelizada"]
             texto_instrucao = fonte_pixelizada.render(f"PRESSIONE ESPACO PARA PULAR", True, (255, 255,255))
             window.blit(texto_instrucao, (250, 465))
 
