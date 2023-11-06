@@ -133,15 +133,21 @@ class Player(pygame.sprite.Sprite):
 
 
         """"
-        Controla fim da imunidade do player
+        Controla delay de imunidade do player
         """
 
-        if self.imunidade and pygame.time.get_ticks() - self.imune_counter > self.imune_duration:
-            self.imunidade = False
+        if self.imunidade and pygame.time.get_ticks() - self.imune_counter > self.imune_duration - 2000:
             self.largura_player = 50
             self.altura_player = 70
             self.rect_player.size = (self.largura_player, self.altura_player)
             self.atualiza_escala_player()
+
+        """
+        Controla o fim da imunidade do player
+        """
+        
+        if self.imunidade and pygame.time.get_ticks() - self.imune_counter > self.imune_duration:
+            self.imunidade = False
 
 
     """
