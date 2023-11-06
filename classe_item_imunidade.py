@@ -32,7 +32,7 @@ class item_imunidade (pygame.sprite.Sprite):
     """
     def reset_posicao(self):
         self.rect.x = largura_tela + random.randint (100, 600)  
-        max_y = altura_tela - self.rect.height - 20
+        max_y = altura_tela - self.rect.height - 100
         self.rect.y = random.randint(300, max_y)
 
     """

@@ -5,7 +5,7 @@ from classe_obstacles import Obstacle
 from constantes import largura_tela, altura_tela, velocidade_tela, QUANTIDADE_AUMENTO_VELOCIDADE
 from tela_game_over import show_game_over_screen
 from tela_inicio import show_tela_inicio
-import random
+from classe_coracoes import item_coracao
 from classe_item_imunidade import item_imunidade
 
 """
@@ -21,12 +21,13 @@ def game_loop(window, state):
     player = state['player']
     background_imagem = state['background']
     distancia_percorrida = 0
-    fonte = pygame.font.Font(None, 36)
+
 
     AUMENTAR_VELOCIDADE_EVENT = pygame.USEREVENT + 1
     pygame.time.set_timer(AUMENTAR_VELOCIDADE_EVENT, 20000) 
 
     tempo_surgimento_item = pygame.time.get_ticks()
+    tempo_surgimento_coracao = pygame.time.get_ticks()
 
 
     """
@@ -67,7 +68,7 @@ def game_loop(window, state):
                     return 
                 
             """
-            Adiciona novos itens na tela e os movimenta 
+            Adiciona novos itens de imunidade na tela e os movimenta 
             """
 
             for item in state ["grupo_itens"]:
@@ -91,6 +92,30 @@ def game_loop(window, state):
                 novo_item = item_imunidade()
                 novo_item.adiciona_itens(state)
 
+            """
+            Adiciona novos itens de vida (corações) na tela e os movimenta
+            """
+
+            for itemcoracao in state ["grupo_coracao"]:
+                
+                itemcoracao.rect.x -= state ["velocidade_tela"]
+
+                if itemcoracao.rect.x < -itemcoracao.rect.width:
+                    itemcoracao.kill()
+
+                if player.rect_player.colliderect(itemcoracao.rect):
+                    if state ["vidas"] < 3:
+                        state ["vidas"] += 1
+                        itemcoracao.kill()
+
+                itemcoracao.desenha_itemcoracao(window)
+
+            if pygame.time.get_ticks() - tempo_surgimento_coracao > 40000:
+                
+                tempo_surgimento_coracao = pygame.time.get_ticks()
+                novo_itemcoracao = item_coracao()
+                novo_itemcoracao.adiciona_itens_coracao(state)
+
 
             """
             Movimentação dos componentes do jogo
@@ -112,10 +137,17 @@ def game_loop(window, state):
                     if state ["vidas"] > 0:
                         state ["vidas"] -= 1
                         obstacle.kill ()
+                        novo_obstacle = Obstacle()
+                        novo_obstacle.adiciona_obstacles(state)
+                        player.timer = 180
                     
                     if state ["vidas"] <= 0:
                         show_game_over_screen(window)
                         state ["tela"] = "game_over"
+
+
+                if player.timer > 0:
+                    player.timer -= 1
 
                 """
                 Caso o obstáculo saia da tela, ele é removido e um novo obstáculo é adicionado
@@ -204,6 +236,10 @@ def game_loop(window, state):
                     for _ in range (1):
                         item = item_imunidade()
                         item.adiciona_itens(state)
+
+                    for _ in range (1):
+                        itemcoracao = item_coracao()
+                        itemcoracao.adiciona_itens_coracao(state)
                     
 
 
