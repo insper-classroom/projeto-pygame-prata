@@ -17,7 +17,7 @@ class item_imunidade (pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.x = largura_tela
-        self.rect.y = random.randint(300, altura_tela - self.rect.height)
+        self.rect.y = random.randint(100, altura_tela - self.rect.height - 80)
 
 
     """
