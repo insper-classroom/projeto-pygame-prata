@@ -59,7 +59,7 @@ class Player(pygame.sprite.Sprite):
         self.is_jumping = False
 
         self.imunidade = False 
-        self.imune_duration = 5000
+        self.imune_duration = 7000
 
     """
     Função que movimenta o player
