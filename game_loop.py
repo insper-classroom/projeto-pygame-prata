@@ -97,6 +97,7 @@ def game_loop(window, state):
                     item.desenha_item(window)
 
                     if player.rect_player.colliderect(item.rect):
+                        state ["som_especial"].play()
                         player.imunidade = True
                         item.kill()
                         player.imune_counter = pygame.time.get_ticks()
@@ -122,6 +123,7 @@ def game_loop(window, state):
                 if player.rect_player.colliderect(itemcoracao.rect):
                     if state ["vidas"] < 3:
                         state ["vidas"] += 1
+                        state ["som_vida"].play()
                         itemcoracao.kill()
 
                 itemcoracao.desenha_itemcoracao(window)
@@ -152,6 +154,8 @@ def game_loop(window, state):
                 Caso o player colida com um obstáculo, ele perde uma vida e morre quando elas chegam a 0
                 """
                 if player.rect_player.colliderect(obstacle.rect) and player.imunidade == False:
+
+                    state ["som_choque"].play()
                     
                     if state ["vidas"] > 0:
                         state ["vidas"] -= 1

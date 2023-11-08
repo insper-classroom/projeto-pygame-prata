@@ -34,8 +34,11 @@ def inicializa():
 
     pygame.mixer.music.load('main-theme.mp3')
     som_teleporte = pygame.mixer.Sound("teleporte.mp3")
+    som_choque = pygame.mixer.Sound("choque.mp3")
+    som_vida = pygame.mixer.Sound("som_vida.mp3")
+    som_especial = pygame.mixer.Sound("som_especial.mp3")
 
-    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela, "tela" : "inicio", "musica_principal" : "main-theme.mp3", "fonte_pixelizada" : fonte_pixelixada, "grupo_itens" : pygame.sprite.Group (), "vidas": 3, "fonte_coracao" : fonte_coracao, "grupo_coracao" : pygame.sprite.Group (), "distancia_percorrida" : 0, "musica_tela_final" : "tela-final.mp3", 'musica_atual' : None, "flash" : False, "som_teleporte" : som_teleporte, "teleporte" : False} 
+    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela, "tela" : "inicio", "musica_principal" : "main-theme.mp3", "fonte_pixelizada" : fonte_pixelixada, "grupo_itens" : pygame.sprite.Group (), "vidas": 3, "fonte_coracao" : fonte_coracao, "grupo_coracao" : pygame.sprite.Group (), "distancia_percorrida" : 0, "musica_tela_final" : "tela-final.mp3", 'musica_atual' : None, "flash" : False, "som_teleporte" : som_teleporte, "teleporte" : False, "som_choque" : som_choque, "som_vida" : som_vida, "som_especial" : som_especial} 
 
     for _ in range(4):
         obstacle = Obstacle()
