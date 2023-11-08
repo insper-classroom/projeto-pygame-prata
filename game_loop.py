@@ -258,6 +258,8 @@ def game_loop(window, state):
                     state ["grupo_itens"] = pygame.sprite.Group ()
                     state ["vidas"] = 3
                     state ["grupo_coracao"] = pygame.sprite.Group ()
+                    state ["teleporte"] = False
+                    state ["flash"] = False
 
                     for _ in range (1):
                         item = item_imunidade()
