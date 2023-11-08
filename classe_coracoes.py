@@ -41,7 +41,7 @@ class item_coracao (pygame.sprite.Sprite):
 
     def adiciona_itens_coracao (self, state):
 
-        while pygame.sprite.spritecollideany(self, state["grupo_obstacles"]) != None or pygame.sprite.spritecollideany(self, state ["grupo_itens"]) != None:
+        while pygame.sprite.spritecollideany(self, state["grupo_obstacles"]) != None or pygame.sprite.spritecollideany(self, state ["grupo_itens"]) != None or pygame.sprite.spritecollideany(self, state ["grupo_coracao"]) != None:
             self.reset_posicao_coracao()
         
         state ["grupo_coracao"].add(self)

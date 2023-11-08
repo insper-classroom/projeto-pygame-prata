@@ -17,7 +17,7 @@ class item_imunidade (pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.x = largura_tela
-        self.rect.y = random.randint(300, altura_tela - self.rect.height)
+        self.rect.y = random.randint(50, altura_tela - self.rect.height - 100)
 
 
     """
@@ -33,7 +33,7 @@ class item_imunidade (pygame.sprite.Sprite):
     def reset_posicao(self):
         self.rect.x = largura_tela + random.randint (100, 600)  
         max_y = altura_tela - self.rect.height - 100
-        self.rect.y = random.randint(300, max_y)
+        self.rect.y = random.randint(50, max_y)
 
     """
     Função que adiciona o item  ao grupo de itens do jogo, assim o validando
@@ -41,7 +41,7 @@ class item_imunidade (pygame.sprite.Sprite):
 
     def adiciona_itens (self, state):
 
-        while pygame.sprite.spritecollideany(self, state["grupo_obstacles"]) != None:
+        while pygame.sprite.spritecollideany(self, state["grupo_obstacles"]) != None or pygame.sprite.spritecollideany(self, state["grupo_itens"]) != None or pygame.sprite.spritecollideany(self, state["grupo_coracao"]) != None: 
             self.reset_posicao()
         
         state ["grupo_itens"].add(self)

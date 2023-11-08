@@ -2,11 +2,12 @@ import pygame
 from classe_player import *
 from classe_background import *
 from classe_obstacles import Obstacle
-from constantes import largura_tela, altura_tela, velocidade_tela, QUANTIDADE_AUMENTO_VELOCIDADE
+from constantes import largura_tela, altura_tela, velocidade_tela, QUANTIDADE_AUMENTO_VELOCIDADE, MUDANCA_BACKGROUND
 from tela_game_over import show_game_over_screen
 from tela_inicio import show_tela_inicio
 from classe_coracoes import item_coracao
 from classe_item_imunidade import item_imunidade
+from funcoes_adicionais import troca_musica, flash_white_screen
 
 """
 Função que roda o jogo em um loop infinito
@@ -20,7 +21,6 @@ def game_loop(window, state):
 
     player = state['player']
     background_imagem = state['background']
-    distancia_percorrida = 0
 
 
     AUMENTAR_VELOCIDADE_EVENT = pygame.USEREVENT + 1
@@ -42,18 +42,33 @@ def game_loop(window, state):
         if state ['tela'] == "jogo":
 
             """
-            Toca a música principal do jogo
+            Toca a música principal do jogo e quando o background muda, toca a música da tela final, além de disparar o flash 
+            """
+            if state ["distancia_percorrida"] >= MUDANCA_BACKGROUND:
+                
+                if state ["teleporte"] == False:
+                    state ["som_teleporte"].play()
+                    state ["teleporte"] = True
+               
+                if state ["flash"] == True:
+                    troca_musica(state, state ["musica_tela_final"])
+                
+                if state ["flash"] == False:
+                    state ["flash"] = True
+                    flash_white_screen(window)
+                
+
+            else:
+                troca_musica(state, state ["musica_principal"])
+
+
+
+            """
+            Desenha background, dependendo da distancia percorrida (background inicial ou final)
             """
 
-            if state ["musica_tocando"] == False:
-                state ["musica_principal"].play()
-                state ["musica_tocando"] = True
-
-            """"
-            Desenha background
-            """
-            background_imagem.desenha_background(window)  
-            
+            background_imagem.desenha_background(window, state) 
+        
 
             """
             Velociodade aumenta com o passar do tempo jogando
@@ -122,8 +137,11 @@ def game_loop(window, state):
             """
 
             player.movimenta_player(state)  
-            background_imagem.movimenta_background(state)  
-            distancia_percorrida +=  state["velocidade_tela"] / 30
+            
+            background_imagem.movimenta_background(state)
+                
+                
+            state ["distancia_percorrida"] +=  state["velocidade_tela"] / 30
 
             for obstacle in state ["grupo_obstacles"]:
                 obstacle.movimenta_e_anima_obstacle(state)
@@ -174,6 +192,7 @@ def game_loop(window, state):
             Mostra a distância percorrida na tela
             """
             fonte_pixelizada = state ["fonte_pixelizada"]
+            distancia_percorrida = state ["distancia_percorrida"]
             texto_distancia = fonte_pixelizada.render(f"{int(distancia_percorrida)} M", True, (255, 255, 255))
             window.blit(texto_distancia, (largura_tela * 0.9, altura_tela * 0.12))
     
@@ -188,6 +207,7 @@ def game_loop(window, state):
             window.blit (texto_vidas, (largura_tela * 0.9, altura_tela * 0.04))
 
 
+
     
         """
         Caso o jogo esteja rodando na tela de game over
@@ -196,10 +216,11 @@ def game_loop(window, state):
         if state ['tela'] == "game_over" and player.imunidade == False:
             
             show_game_over_screen(window)
-            state ["musica_principal"].stop()
-            state ["musica_tocando"] = False
+            
+            pygame.mixer.music.stop()
 
             fonte_pixelizada = state ["fonte_pixelizada"]
+            distancia_percorrida = state ["distancia_percorrida"]
             texto_distancia = fonte_pixelizada.render(f"SCORE: {int(distancia_percorrida)}", True, (0,0,0))
             window.blit(texto_distancia, (425, 369))
 
@@ -228,10 +249,10 @@ def game_loop(window, state):
                         novo_obstacle.adiciona_obstacles(state)
 
                     state ["background"] = background_imagem
-                    distancia_percorrida = 0
-                    state ["musica_tocando"] = False
+                    state ["distancia_percorrida"] = 0
                     state ["grupo_itens"] = pygame.sprite.Group ()
                     state ["vidas"] = 3
+                    state ["grupo_coracao"] = pygame.sprite.Group ()
 
                     for _ in range (1):
                         item = item_imunidade()

@@ -26,15 +26,16 @@ def inicializa():
     Inicialização dos componentes do jogo (player, background, obstaculos etc.)
     """
     player = Player() 
-    background_imagem = Background('background.png') 
+    background_imagem = Background('background.png', 'background2.png') 
 
     fonte_pixelixada = pygame.font.Font('fonte_pixelizada.ttf', 30)
 
     fonte_coracao = pygame.font.Font ("PressStart2P.ttf", 30)
 
     pygame.mixer.music.load('main-theme.mp3')
+    som_teleporte = pygame.mixer.Sound("teleporte.mp3")
 
-    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela, "tela" : "inicio", "musica_principal" : pygame.mixer.music, "musica_tocando" : False, "fonte_pixelizada" : fonte_pixelixada, "grupo_itens" : pygame.sprite.Group (), "vidas": 3, "fonte_coracao" : fonte_coracao, "grupo_coracao" : pygame.sprite.Group ()}
+    state = {'player': player, 'background' : background_imagem,  "grupo_obstacles" : pygame.sprite.Group(), "velocidade_tela" : velocidade_tela, "tela" : "inicio", "musica_principal" : "main-theme.mp3", "fonte_pixelizada" : fonte_pixelixada, "grupo_itens" : pygame.sprite.Group (), "vidas": 3, "fonte_coracao" : fonte_coracao, "grupo_coracao" : pygame.sprite.Group (), "distancia_percorrida" : 0, "musica_tela_final" : "tela-final.mp3", 'musica_atual' : None, "flash" : False, "som_teleporte" : som_teleporte, "teleporte" : False} 
 
     for _ in range(4):
         obstacle = Obstacle()
