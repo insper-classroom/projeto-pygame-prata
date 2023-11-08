@@ -6,6 +6,10 @@
     font-family: 'Inconsolata', monospace;
 }
 
+html {
+    scroll-behavior: smooth;
+  }
+  
 .grid{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -13,7 +17,7 @@
 }
 
 body {
-    background-color: #00B7FF;
+    background-color: rgb(12, 12, 168);
     height: 500vh;
 }
 
@@ -52,7 +56,7 @@ header nav ul {
 
 header nav ul li {
     display: inline-block;
-    margin: 0 20px; 
+    margin: 0 15px; 
 }
 
 
@@ -61,9 +65,18 @@ header nav ul li {
     text-align: center;
 }
 
+h3{
+    font-size: 1.5rem;
+    color: white;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 3rem;
+}
+
 h2{
     font-size: 2rem;
     margin-bottom: 2rem;
+    color: white;
 }
 
 h1 {
@@ -79,8 +92,21 @@ p {
     font-weight: 500;
     text-align: center;
     margin: left 5rem;
+    color: white;
 }
 
+ol{
+    margin:auto;
+}
+
+li{
+    font-size: 1.2rem;
+    margin-top: 40px;
+    padding-right: 70px ;
+    font-weight: 500;
+    text-align:justify;
+    color: white;
+}
 
 .container {
     padding: 1.5rem;
@@ -103,7 +129,15 @@ p {
 .button-jogar :hover{
     background-color: #FFD700;
     transition: 0.3s;
-    color: #00B7FF;
+}
+
+.executar {
+    margin-left: 5rem;
+}
+
+.executar a{
+    color: #ffffff;
+    text-decoration: underline;
 }
 
 a{
@@ -144,8 +178,38 @@ img.gif{
   .title span {
     font-weight: 800;
   }
+
+  .img_site img{
+    max-width: min(22rem, 100%); 
+    max-height: 30rem; 
+    width: auto;
+    height: auto;
+    border-radius: 3%;
+    align-items: center;
+    margin-left: 5rem;
+    margin-top: 2.5rem;
+  }
   
-  .image img {
+.carrossel{
+    width: 630px;
+    height: 330px;
+    background-color: #000000;
+    border: 5px solid;
+    overflow: hidden;
+}
+
+.carrossel .fts{
+    width: 500%;
+    animation-name: animacao;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+}
+
+.carrossel  .fts img {
+    width: 19.9%;
+  }
+
+.image img{
     max-width: min(22rem, 100%); 
     max-height: 30rem; 
     width: auto;
@@ -154,7 +218,19 @@ img.gif{
     align-items: center;
     margin-left: 5rem;
     display: grid;
-  }
+}
+
+@keyframes animacao{
+    0% { margin-left: 0;}
+    20% { margin-left: 0;}
+    25% { margin-left: -100%;}
+    45% { margin-left: -100%;}
+    50% { margin-left: -200%;}
+    70% { margin-left: -200%;}
+    75% { margin-left: -300%;}
+    95% { margin-left: -300%;}
+    100% { margin-left: -400%;}
+}
 
   .barra{
     color: #FFD700;
@@ -177,4 +253,46 @@ section {
 .logDev{
     padding-right: 20rem;
     padding-left: 20rem;
+}
+
+/* footer section */
+
+.footer{
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    z-index: 99;
+}
+
+.footercontainer{
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 1.5rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.socialIcons{
+    display: flex;
+    justify-content: center;
+}
+
+.socialIcons a{
+    text-decoration: none;
+    padding: 1rem;
+    background-color: #ffffff;
+    margin: 1rem;
+    border-radius: 100%;
+}
+
+.socialIcons a i{
+    font-size: 2rem;
+    color: #000000;
+    opacity: 0.9;
+}
+
+.socialIcons a:hover i{
+    color:#FFD700;
+    transition: 0.5s
 }

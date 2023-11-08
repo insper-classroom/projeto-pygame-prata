@@ -7,6 +7,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <title>Jogo do Cientista</title>
 </head>
 <body>
@@ -21,8 +26,10 @@
       <nav class="menu-desktop">
         <ul>    
           <li><a href="#sobre-o-jogo">About</a></li>
+          <li><a href="#como-executar">Como Executar</a></li>
           <li><a href="#desenvolvedores">Developers</a></li>
-          <li><a href="#Log-de-desenvolvimento">Log de desenvolvimento</a></li>
+          <li><a href="#log-de-desenvolvimento">Log de Desenvolvimento</a></li>
+          <li><a href="#avaliacao-heuristica">Avaliação Heurística</a></li>
         </ul>
       </nav>
     </div>
@@ -34,7 +41,7 @@
       <img class="gif" src="LabRun.gif" alt="Vídeo do jogo">
     </div>
     <div class="button-jogar">
-      <button class="btn"><a href="LabRun.zip" download="LabRun.zip" type="application/zip">Clique aqui para jogar!</a></button>
+      <button class="btn"><a href="LabRun.zip" download="LabRun.zip" type="application/zip" id="botao_jogar">Clique aqui para jogar!</a></button>
     </div>
   </section>
   
@@ -43,13 +50,31 @@
       <div class="grid">
         <div class="txt-sobre-o-jogo">
           <h2><span class="barra" id = "sobre-o-jogo">|</span><span>Como é o nosso jogo?</span></h2>
-          <p>O jogo Lab Run, é um jogo inspirado no Jetpack Joyride e seu principal objetivo é desviar dos obstáculos até onde conseguir, e ai? vai encarar? </p>
+          <p>O jogo Lab Run, é um jogo inspirado no Jetpack Joyride, um fugitivo de um laboratório que possui um Jetpack de metralhadora e seu principal objetivo é desviar dos obstáculos até onde conseguir, e ai? vai encarar? </p>
         </div>
-        <div class="image">
-          <img src="Background.png" alt="foto_qualquer">
+        <div class="carrossel">
+        <div class="fts">
+          <img src="tela_dmt_1.png" alt="">
+          <img src="tela_dmt_2.png" alt="">
+          <img src="tela_dmt_3.png" alt="">
+          <img src="tela_dmt_4.png" alt="">
+        </div>
         </div>
       </div>
     </div>
+  </section>
+  <section class="section" id="como-executar">
+    <div class="interface">
+        <div class="txt-sobre-o-jogo">
+          <h2><span class="barra" id = "sobre-o-jogo">|</span><span>Como executar o jogo?</span></h2>
+          <ol class="executar">
+            <li>Baixe o arquivo no formato zip no botão <a href="#botao_jogar">"clique aqui para jogar"</a></li>
+            <li>Descompacte o arquivo baixado</li>
+            <li>Dentro da pasta do arquivo, crie um ambiente virtual python</li>
+            <li>Instale Os requirements.txt dentro do ambiente</li>
+            <li>Execute o arquivo "jogo.py"</li>
+          </ol>
+        </div>
   </section>
 
   <section class="section" id = "desenvolvedores">
@@ -69,7 +94,7 @@
       </div>
     </div>
   </section>
-  <section class="section" id = "Log-de-desenvolvimento">
+  <section class="section" id = "log-de-desenvolvimento">
     <div class="interface">
       <div class="txt-sobre-o-jogo">
         <h2><span class="barra">|</span><span>Log de desenvolvimento</span></h2>
@@ -77,8 +102,50 @@
       <div class="logDev" id="commits">    
         <script src="./script.js"></script>
       </div>
-      </div>
+    </div>
   </section>
+  <section class="section" id="avaliacao-heuristica">
+    <div class="interface">
+      <div class="txt-sobre-o-jogo">
+        <h2><span class="barra">|</span><span>Avaliação Heurística</span></h2>
+      </div>
+      <p>Alguns dos problemas que corrigimos no site após as sugestões dos nossos colegas foram: melhorar o espaçamento entre os textos e as imagens, mudar a cor de fundo, tamanho das imagens, e colocar um footer contendo as nossas informações</p>
+      <div class="grid">
+        <div class="img_site">
+        <h3><span class="barra">|</span>Antes</h3>
+        <img src="antes1.png" alt="">
+        <img src="antes2.png" alt="">
+        <img src="antes3.png" alt="">
+        </div>
+        <div class="img_site">
+          <h3><span class="barra">|</span>Depois</h3>
+          <img src="depois1.png" alt="">
+          <img src="depois2.png" alt="">
+          <img src="depois 3.png" alt="">
+          </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+<div class="footer">
+  <div class="footercontainer">
+    <div class="grid">
+      <h3>Vitor Raia</h3>
+      <div class="socialIcons">
+          <a href=""><i class="fa-brands fa-instagram"></i></a>
+          <a href=""><i class="fa-brands fa-github"></i></a>
+          <a href=""><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+        <h3>Pedro Fardin</h3>
+        <div class="socialIcons">
+          <a href=""><i class="fa-brands fa-instagram"></i></a>
+          <a href=""><i class="fa-brands fa-github"></i></a>
+          <a href=""><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+      </div>
+  </div>
+</div>
 
 </body>
 </html>
