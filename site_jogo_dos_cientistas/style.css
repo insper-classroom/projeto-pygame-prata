@@ -63,33 +63,34 @@ header nav ul li {
 
 h2{
     font-size: 2rem;
+    margin-bottom: 2rem;
 }
 
 h1 {
+    margin-bottom: 3rem;
     font-size: 2rem;
     color: #FFD700; 
 }
  
 p {
     font-size: 1.2rem;
-    margin: 40px 0;
-    padding-right: 40px ;
+    margin-top: 40px;
+    padding-right: 70px ;
     font-weight: 500;
     text-align: center;
+    margin: left 5rem;
 }
 
 
 .container {
     padding: 1.5rem;
-    margin: auto;
     display: grid;  
     flex-direction: column;
-    justify-content: center;
     grid-template-columns: (2,1fr);
 }
 
 .button-jogar button{
-    color: #FFD700;
+    margin: 50px;
     padding: 10px 40px;
     font-size: 18px;
     font-weight: 600;
@@ -99,6 +100,17 @@ p {
     cursor: pointer;
 } 
 
+.button-jogar :hover{
+    background-color: #FFD700;
+    transition: 0.3s;
+    color: #00B7FF;
+}
+
+a{
+    text-decoration: none;
+}
+
+
 /* footer {
     background-color: #333;
     color: white;
@@ -106,12 +118,19 @@ p {
     text-align: center;
 } */
 
+img.gif{
+    width: 60rem;
+    height: 30rem;
+    border-radius: 3%;
+    align-items: center;
+}
+
 .section{ 
     
     padding: 2rem; 
     gap: 4rem; 
     grid-template-columns: repeat(2, 1fr); 
-    margin-bottom: 20rem;
+    margin-bottom: 2rem;
 }
 
 .title {
@@ -131,10 +150,10 @@ p {
     max-height: 30rem; 
     width: auto;
     height: auto;
-    border-radius: 20%;
+    border-radius: 3%;
     align-items: center;
     margin-left: 5rem;
-    display: flex;
+    display: grid;
   }
 
   .barra{
@@ -153,4 +172,9 @@ section.topo-do-site.flex{
 
 section {
     margin-bottom: 6rem;
+}
+
+.logDev{
+    padding-right: 20rem;
+    padding-left: 20rem;
 }
